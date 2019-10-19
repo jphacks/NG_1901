@@ -10,7 +10,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     CarouselColumn, CarouselTemplate, ImageMessage,
-    MessageEvent, TemplateSendMessage, TextMessage,
+    MessageEvent, TemplateSendMessage, TextMessage, FollowEvent,
     TextSendMessage, URITemplateAction,ButtonsTemplate,URIAction
 )
 
@@ -27,37 +27,14 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 def hello_world():
     return "hello world!"
 
-# 回数
 @app.route("/count", methods=['GET'])
 def count():
-    count = request.args.get('count')
-    print(count)
-    return count
+    return "ok"
 
 @app.route("/distance", methods=['GET'])
 def distance():
-    #設定完了したよ！通知
     print("ok")
     return "ok"
-
-def push():
-
-    url = 'https://api.line.me/v2/bot/message/push'
-    data = {
-        "to": "",
-        "messages": [
-            {
-                "type": "text",
-                "text": "Hello, user!"
-            }
-        ]
-    }
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN
-    }
-    requests.post(url, data=json.dumps(data), headers=headers)
-
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -76,10 +53,24 @@ def callback():
 
     return 'OK'
 
+# Follow Event
+@handler.add(FollowEvent)
+def on_follow(event):
+    user_id = event.source.user_id
+    reply_token = event.reply_token
+    noti_db.register_id(user_id,reply_token)
+    line_bot_api.reply_message(
+        reply_token=reply_token,
+        messages=TextSendMessage(text='メッセージArigato!\nです')
+    )
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if '登録' in event.message.text:
         content = 'notiのボタンを長押ししてください。'
+        noti_db.templeteList()
+        # list = noti_db.list()
         # notes = [
         #     CarouselColumn(
         #                     image_background_color='#FFFFFF',
@@ -103,12 +94,14 @@ def handle_message(event):
         #     alt_text='template',
         #     template=CarouselTemplate(columns=notes),
         # )
-        line_bot_api.reply_message(event.reply_token, messages=messages)
+        # line_bot_api.reply_message(event.reply_token, messages=content)
     elif 'リスト' in event.message.text:
         list = noti_db.list()
         notes = [
             CarouselColumn(
                             thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
+                            image_aspect_ratio='square',
+                            image_size='contain',
                             image_background_color='#FFFFFF',
                             title=f'{list[0][0]}',
                             text=f'在庫：{list[0][2]}',
@@ -116,6 +109,8 @@ def handle_message(event):
 
             CarouselColumn(
                             thumbnail_image_url='https://japaclip.com/files/hand-soap.png',
+                            image_aspect_ratio='square',
+                            image_size='contain',
                             image_background_color='#FFFFFF',
                             title=f'{list[1][0]}',
                             text=f'在庫：{list[0][2]}',
@@ -123,14 +118,12 @@ def handle_message(event):
 
             CarouselColumn(
                             thumbnail_image_url='https://i1.wp.com/sozaikoujou.com/wordpress/wp-content/uploads/2016/06/th_app_button_plus.jpg?w=600&ssl=1',
+                            image_aspect_ratio='square',
+                            image_size='contain',
                             image_background_color='#FFFFFF',
                             title=f'{list[2][0]}',
                             text=f'在庫：{list[0][2]}',
-                            actions=[{'type': 'message','label': '購入','text': '購入'}])],
-                            image_aspect_ratio='square',
-                            image_size='contain',
-                            
-
+                            actions=[{'type': 'message','label': '購入','text': '購入'}])]
 
         messages = TemplateSendMessage(
             alt_text='template',
@@ -172,6 +165,5 @@ def handle_message(event):
 
 if __name__ == "__main__":
 #    app.run()
-    noti_db.initialization()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
