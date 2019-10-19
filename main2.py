@@ -119,7 +119,9 @@ def handle_message(event):
                  )
                 line_bot_api.reply_message(event.reply_token, messages=messages)
     elif '登録：' in event.message.text:
-        
+        regist = event.message.text.strip('登録：')
+
+
 
     elif 'リスト' in event.message.text:
         list = noti_db.list()
