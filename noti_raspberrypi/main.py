@@ -77,14 +77,14 @@ def main():
         # #ボタンプッシュ判定
         count_button = count_button + GPIO.input(PushButton)
         # 登録 緑点灯までボタン長押し
-        if count_button = 1
+        if count_button == 1:
             url = 'https://noti-line-bot.herokuapp.com/' + 'registration?noti=' + config['noti']
             urllib.request.urlopen(url)
             count_button = count_button + 1
             GPIO.output(LEDPin_R,GPIO.LOW)
             GPIO.output(LEDPin_Y,GPIO.HIGH)
         # # 交換 黄色点灯までボタン長押し
-        if count_button > 4
+        if count_button > 4:
             url = 'https://noti-line-bot.herokuapp.com/' + 'exchange?noti=' + config['noti']
             urllib.request.urlopen(url)
             GPIO.output(LEDPin_Y,GPIO.LOW)
