@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
+#関数serch_amazonの引数に消耗品を入力して実行すると、その消耗品を検索したアマゾンのページのURLが出力されます
 def serch_amazon(serch_word):
     #引数の中に空白があった時、空白を+に置き換える
     words = serch_word.split(" ")
@@ -13,5 +14,3 @@ def serch_amazon(serch_word):
 
     #表示
     print(url)
-
-serch_amazon("ティッシュ")
