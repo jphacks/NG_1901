@@ -120,6 +120,23 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, messages=messages)
     elif '登録：' in event.message.text:
         regist = event.message.text.strip('登録：')
+        confirm_template_message = TemplateSendMessage(
+        alt_text='Confirm template',
+        template=ConfirmTemplate(
+        text='検知対象は？',
+        actions=[
+            PostbackAction(
+                label='人',
+                data='人',
+            ),
+            PostbackAction(
+                label='もの',
+                data='もの')]))
+        line_bot_api.reply_message(event.reply_token,confirm_template_message)
+        goods = ('name':regist,'target':event.postback.data)
+        url = 'http://172.20.10.2:5000/'+'registration'
+        urllib.parse.urlencode(goods['name']) + '&' + urllib.parse.urlencode(goods['target'])
+        urllib.request.urlopen(url)
 
 
 
