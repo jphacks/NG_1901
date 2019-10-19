@@ -83,8 +83,6 @@ def handle_message(event):
         notes = [
             CarouselColumn(
                             thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
-                            image_aspect_ratio=square,
-                            image_size=contain,
                             image_background_color='#FFFFFF',
                             title=f'{list[0][0]}',
                             text=f'在庫：{list[0][2]}',
@@ -92,8 +90,6 @@ def handle_message(event):
 
             CarouselColumn(
                             thumbnail_image_url='https://japaclip.com/files/hand-soap.png',
-                            image_aspect_ratio=square,
-                            image_size=contain,
                             image_background_color='#FFFFFF',
                             title=f'{list[1][0]}',
                             text=f'在庫：{list[0][2]}',
@@ -101,12 +97,14 @@ def handle_message(event):
 
             CarouselColumn(
                             thumbnail_image_url='https://i1.wp.com/sozaikoujou.com/wordpress/wp-content/uploads/2016/06/th_app_button_plus.jpg?w=600&ssl=1',
-                            image_aspect_ratio=square,
-                            image_size=contain,
                             image_background_color='#FFFFFF',
                             title=f'{list[2][0]}',
                             text=f'在庫：{list[0][2]}',
-                            actions=[{'type': 'message','label': '購入','text': '購入'}])]
+                            actions=[{'type': 'message','label': '購入','text': '購入'}])],
+                            image_aspect_ratio='square',
+                            image_size='contain',
+                            
+
 
         messages = TemplateSendMessage(
             alt_text='template',
