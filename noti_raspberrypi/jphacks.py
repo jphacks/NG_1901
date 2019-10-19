@@ -9,6 +9,8 @@ import json
 import urllib.request
 
 # set BCM_GPIO
+# 登録と交換用のボタン
+PushButton = 19
 trigPin   = 17
 echoPin   = 27
 PIRPin    = 22
@@ -16,13 +18,17 @@ LEDPin_G  =  5
 LEDPin_Y  =  6
 LEDPin_R  = 13
 
+# 反応最大距離設定
 detection = 200.0
 
+# 各種カウント
 count     = 0
 check_LED = 0
 count_sensor = 0
+count_button = 0
 distance_total = 0
 
+# 設定ファイル読み込み
 with open('./config.json') as data:
     config = json.load(data)
 
@@ -32,11 +38,19 @@ def setup():
     #set the gpio modes to BCM numbering
     GPIO.setmode(GPIO.BCM)
     #set BuzzerPin's mode to output,and initial level to HIGH(3.3V)
+    # 物理ボタン
+    GPIO.setup(PushButton,GPIO.IN)
+    # 超音波センサ1
     GPIO.setup(trigPin,GPIO.OUT,initial=GPIO.LOW)
+    # 超音波センサ2
     GPIO.setup(echoPin,GPIO.IN)
+    # 人感センサ
     GPIO.setup(PIRPin,GPIO.IN)
+    # 緑
     GPIO.setup(LEDPin_G,GPIO.OUT,initial=GPIO.LOW)
+    # 黄
     GPIO.setup(LEDPin_Y,GPIO.OUT,initial=GPIO.LOW)
+    # 赤
     GPIO.setup(LEDPin_R,GPIO.OUT,initial=GPIO.LOW)
 
 #measurment function
@@ -58,6 +72,7 @@ def measure():
 def main():
     count = 0
     while True:
+
         #measur distance
         distance = measure()
         
@@ -68,7 +83,6 @@ def main():
         
         #detect distance
         if distance < config['detection']:
-            
             #count and turn on LED
             if check_PIR == 1 and count != 1:
                 print ('********************')
@@ -76,20 +90,15 @@ def main():
                 print ('********************')
                 print ('\n')
                 
-                # noti_count = {'count': 1}
-                # url = df['url'] + 'count' + '?' + urllib.parse.urlencode(noti_count)
-                # with urllib.request.urlopen(url) as data:
-                #     print('ok')
                 url = config['url'] + 'count'
+                print(url)
                 urllib.request.urlopen(url)
                 
                 GPIO.output(LEDPin_G,GPIO.HIGH)
                 count = 1
-                
         else:
             count = 0
-                
-#            if check_PIR != 1:
+            # if check_PIR != 1:
             GPIO.output(LEDPin_G,GPIO.LOW)
                     
         time.sleep(0.5)
