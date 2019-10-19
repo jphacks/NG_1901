@@ -18,7 +18,7 @@ LEDPin_G  =  5
 LEDPin_Y  =  6
 LEDPin_R  = 13
 
-detection = 20.0
+# detection = 20.0
 
 count     = 0
 check_LED = 0
@@ -68,7 +68,7 @@ def main():
         check_PIR = GPIO.input(PIRPin)
         
         #detect distance
-        if distance < detection:
+        if distance < df['detection']:
             
             #count and turn on LED
             if check_PIR == 1 and count != 1:
