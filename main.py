@@ -53,46 +53,50 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if '登録' in event.message.text:
-        notes = [
-            CarouselColumn(
-                            image_background_color='#FFFFFF',
-                            # title='Noti1',
-                            text='Noti1',
-                            actions=[{'type': 'message','label': 'これにする','text': '登録完了'}]),
-
-            CarouselColumn(
-                            image_background_color='#FFFFFF',
-                            # title='Noti1',
-                            text='Noti2',
-                            actions=[{'type': 'message','label': 'これにする','text': '登録完了'}]),
-
-            CarouselColumn(
-                            image_background_color='#FFFFFF',
-                            # title='Noti1',
-                            text='Noti3',
-                            actions=[{'type': 'message','label': 'これにする','text': '登録完了'}])]
-
-        messages = TemplateSendMessage(
-            alt_text='template',
-            template=CarouselTemplate(columns=notes),
-        )
+        content = 'notiのボタンを長押ししてください。'
+        # notes = [
+        #     CarouselColumn(
+        #                     image_background_color='#FFFFFF',
+        #                     # title='Noti1',
+        #                     text='Noti1',
+        #                     actions=[{'type': 'message','label': 'これにする','text': '登録完了'}]),
+        #
+        #     CarouselColumn(
+        #                     image_background_color='#FFFFFF',
+        #                     # title='Noti1',
+        #                     text='Noti2',
+        #                     actions=[{'type': 'message','label': 'これにする','text': '登録完了'}]),
+        #
+        #     CarouselColumn(
+        #                     image_background_color='#FFFFFF',
+        #                     # title='Noti1',
+        #                     text='Noti3',
+        #                     actions=[{'type': 'message','label': 'これにする','text': '登録完了'}])]
+        #
+        # messages = TemplateSendMessage(
+        #     alt_text='template',
+        #     template=CarouselTemplate(columns=notes),
+        # )
         line_bot_api.reply_message(event.reply_token, messages=messages)
     elif 'リスト' in event.message.text:
         list = noti_db.list()
         notes = [
             CarouselColumn(
+                            thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
                             image_background_color='#FFFFFF',
                             title=f'{list[0][0]}',
                             text=f'在庫：{list[0][2]}',
                             actions=[{'type': 'message','label': '購入','text': '購入'}]),
 
             CarouselColumn(
+                            thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
                             image_background_color='#FFFFFF',
                             title=f'{list[1][0]}',
                             text=f'在庫：{list[0][2]}',
                             actions=[{'type': 'message','label': '購入','text': '購入'}]),
 
             CarouselColumn(
+                            thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
                             image_background_color='#FFFFFF',
                             title=f'{list[2][0]}',
                             text=f'在庫：{list[0][2]}',
