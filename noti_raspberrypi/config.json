@@ -1,4 +1,7 @@
 {
 "url": "https://noti-line-bot.herokuapp.com/",
-"detection": 20
+"noti": "A",
+"name": "tissue",
+"target": "object",
+"detection": 50
 }
