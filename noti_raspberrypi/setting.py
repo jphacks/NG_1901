@@ -1,8 +1,3 @@
-#!/usr/bin/python
-###########################################################################
-#Filename      :jphacks.py
-#Description   :noti
-############################################################################
 import RPi.GPIO as GPIO
 import time
 import json
@@ -70,6 +65,7 @@ def measure():
     distance = timepassed * 17000
     return distance
 
+# 閾値設定
 @app.route("/setting", methods=['GET'])
 def setting():
     count = 0
@@ -121,7 +117,8 @@ def setting():
             GPIO.output(LEDPin_G,GPIO.LOW)
                     
         time.sleep(0.5)
-                
+          
+# 残量アラート      
 @app.route("/alert", methods=['GET'])
 def alert():
     GPIO.output(LEDPin_R,GPIO.HIGH)
