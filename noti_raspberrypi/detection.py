@@ -60,45 +60,6 @@ def measure():
     distance = timepassed * 17000
     return distance
 
-# def main():
-#     count = 0
-#     while True:
-#         #measur distance
-#         distance = measure()
-        
-#         print('distance = ',distance)
-        
-#         #check presence sensor
-#         check_PIR = GPIO.input(PIRPin)
-        
-#         #detect distance
-#         if distance < df['detection']:
-            
-#             #count and turn on LED
-#             if check_PIR == 1 and count != 1:
-#                 print ('********************')
-#                 print ('*     alarm!       *')
-#                 print ('********************')
-#                 print ('\n')
-                
-#                 # noti_count = {'count': 1}
-#                 # url = df['url'] + 'count' + '?' + urllib.parse.urlencode(noti_count)
-#                 # with urllib.request.urlopen(url) as data:
-#                 #     print('ok')
-#                 url = df['url'] + 'count'
-#                 urllib.request.urlopen(url)
-                
-#                 GPIO.output(LEDPin_G,GPIO.HIGH)
-#                 count = 1
-                
-#         else:
-#             count = 0
-                
-# #            if check_PIR != 1:
-#             GPIO.output(LEDPin_G,GPIO.LOW)
-                    
-#         time.sleep(0.5)
-
 @app.route("/setting", methods=['GET'])
 def setting():
     count = 0
@@ -124,6 +85,7 @@ def setting():
                 #閾値が決まったら，config.json書き換え
                 json_config = cl.OrderedDict()
                 json_config['url'] = config['url']
+                json_config['noti'] = config['noti']
                 json_config['detection'] = distance_total
                 config_new = open('config.json','w')
                 json.dump(json_config,config_new,indent=4)
