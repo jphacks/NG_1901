@@ -14,6 +14,8 @@ from flask import Flask, request
 app = Flask(__name__)
 
 # set BCM_GPIO
+# 登録と交換用のボタン
+PushButton = 19
 trigPin   = 17
 echoPin   = 27
 PIRPin    = 22
@@ -37,11 +39,19 @@ def setup():
     #set the gpio modes to BCM numbering
     GPIO.setmode(GPIO.BCM)
     #set BuzzerPin's mode to output,and initial level to HIGH(3.3V)
+    # 物理ボタン
+    GPIO.setup(PushButton,GPIO.IN)
+    # 超音波センサ1
     GPIO.setup(trigPin,GPIO.OUT,initial=GPIO.LOW)
+    # 超音波センサ2
     GPIO.setup(echoPin,GPIO.IN)
+    # 人感センサ
     GPIO.setup(PIRPin,GPIO.IN)
+    # 緑
     GPIO.setup(LEDPin_G,GPIO.OUT,initial=GPIO.LOW)
+    # 黄
     GPIO.setup(LEDPin_Y,GPIO.OUT,initial=GPIO.LOW)
+    # 赤
     GPIO.setup(LEDPin_R,GPIO.OUT,initial=GPIO.LOW)
 
 #measurment function
@@ -112,6 +122,10 @@ def setting():
                     
         time.sleep(0.5)
                 
+@app.route("/alert", methods=['GET'])
+def alert():
+    GPIO.output(LEDPin_R,GPIO.HIGH)
+    return "On"
        
 #define a destroy function for clean up everything after the script finished
 def destroy():
