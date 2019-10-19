@@ -27,11 +27,37 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 def hello_world():
     return "hello world!"
 
+# 回数
 @app.route("/count", methods=['GET'])
 def count():
     count = request.args.get('count')
     print(count)
     return count
+
+@app.route("/distance", methods=['GET'])
+def distance():
+    #設定完了したよ！通知
+    print("ok")
+    return "ok"
+
+def push():
+
+    url = 'https://api.line.me/v2/bot/message/push'
+    data = {
+        "to": "",
+        "messages": [
+            {
+                "type": "text",
+                "text": "Hello, user!"
+            }
+        ]
+    }
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN
+    }
+    requests.post(url, data=json.dumps(data), headers=headers)
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
