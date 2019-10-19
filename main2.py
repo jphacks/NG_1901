@@ -88,40 +88,41 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if '登録' == event.message.text:
-        content = 'notiのボタンを長押ししてください。'  #変更
+        content = 'notiのボタンをランプが赤に点灯するまで長押ししてください。'
+        noti_db.templeteList()
 
     elif '選択' in event.message.text:
-            noti = request.args.get('noti')
+        noti = request.args.get('noti')
 
-                 notes = [
-                    CarouselColumn(
-                                    thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
-                                    image_background_color='#FFFFFF',
-                                    title='ティッシュ',
-                                    actions=[{'type': 'message','label': '登録','text': '登録：ティシュ'}]),
+        notes = [
+                CarouselColumn(
+                                thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
+                                image_background_color='#FFFFFF',
+                                title='ティッシュ',
+                                actions=[{'type': 'message','label': '登録','text': '登録：ティシュ'}]),
 
-                    CarouselColumn(
-                                    thumbnail_image_url='https://japaclip.com/files/hand-soap.png',
-                                    image_background_color='#FFFFFF',
-                                    title='ハンドソープ',
-                                    actions=[{'type': 'message','label': '登録','text': '登録：ハンドソープ'}]),
+                CarouselColumn(
+                                thumbnail_image_url='https://japaclip.com/files/hand-soap.png',
+                                image_background_color='#FFFFFF',
+                                title='ハンドソープ',
+                                actions=[{'type': 'message','label': '登録','text': '登録：ハンドソープ'}]),
 
-                    CarouselColumn(
-                                    thumbnail_image_url='https://i1.wp.com/sozaikoujou.com/wordpress/wp-content/uploads/2016/06/th_app_button_plus.jpg?w=600&ssl=1',
-                                    image_background_color='#FFFFFF',
-                                    title='その他',
-                                    actions=[{'type': 'message','label': '登録','text': '登録：その他'}])]
+                CarouselColumn(
+                                thumbnail_image_url='https://i1.wp.com/sozaikoujou.com/wordpress/wp-content/uploads/2016/06/th_app_button_plus.jpg?w=600&ssl=1',
+                                image_background_color='#FFFFFF',
+                                title='その他',
+                                actions=[{'type': 'message','label': '登録','text': '登録：その他'}])]
 
 
-                 messages = TemplateSendMessage(
-                     alt_text='template',
-                     template=CarouselTemplate(columns=notes),
-                 )
-                line_bot_api.reply_message(event.reply_token, messages=messages)
+         messages = TemplateSendMessage(
+             alt_text='template',
+             template=CarouselTemplate(columns=notes),
+         )
+        line_bot_api.reply_message(event.reply_token, messages=messages)
     elif '登録：' in event.message.text:
         regist = event.message.text.strip('登録：')
         confirm_template_message = TemplateSendMessage(
-        alt_text='Confirm template',
+        alt_text='template',
         template=ConfirmTemplate(
         text='検知対象は？',
         actions=[
@@ -132,8 +133,8 @@ def handle_message(event):
             PostbackAction(
                 label='もの',
                 data='もの')]))
-        line_bot_api.reply_message(event.reply_token,confirm_template_message)
-        goods = ('name':regist,'target':event.postback.data)
+        line_bot_api.reply_message(event.reply_token,message=confirm_template_message)
+        goods = {'name':regist,'target':event.postback.data}
         url = 'http://172.20.10.2:5000/'+'registration'
         urllib.parse.urlencode(goods['name']) + '&' + urllib.parse.urlencode(goods['target'])
         urllib.request.urlopen(url)
