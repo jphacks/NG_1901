@@ -98,6 +98,9 @@ def main():
         
         #check presence sensor
         check_PIR = GPIO.input(PIRPin)
+
+        if config['target'] == 'object':
+            check_PIR == 1
         
         #detect distance
         if distance < config['detection']:
@@ -108,10 +111,13 @@ def main():
                 print ('********************')
                 print ('\n')
                 
-                url = config['url'] + 'count'
-                print(url)
-                urllib.request.urlopen(url)
-                
+                if config['target'] == 'object':
+                    url = config['url'] + 'object?noti=' +config['noti']
+                    urllib.request.urlopen(url)
+                else:
+                    url = config['url'] + 'count'
+                    urllib.request.urlopen(url)
+    
                 GPIO.output(LEDPin_G,GPIO.HIGH)
                 count = 1
         else:
