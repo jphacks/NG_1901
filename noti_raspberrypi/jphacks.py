@@ -8,7 +8,7 @@ import time
 import json
 import urllib.request
 
-# 'https://noti-line-bot.herokuapp.com/'
+app = Flask(__name__)
 
 # set BCM_GPIO
 trigPin   = 17
@@ -18,13 +18,15 @@ LEDPin_G  =  5
 LEDPin_Y  =  6
 LEDPin_R  = 13
 
-# detection = 20.0
+detection = 200.0
 
 count     = 0
 check_LED = 0
+count_sensor = 0
+distance_total = 0
 
-with open('./config.json') as f:
-    df = json.load(f)
+with open('./config.json') as data:
+    config = json.load(data)
 
 #setup function for some setup---custom function
 def setup():
@@ -54,8 +56,7 @@ def measure():
     timepassed = signal_on - signal_off
     distance = timepassed * 17000
     return distance
-    
-#main function
+
 def main():
     count = 0
     while True:
@@ -77,10 +78,12 @@ def main():
                 print ('********************')
                 print ('\n')
                 
-                noti_count = {'count': 1}
-                url = df['url'] + 'count' + '?' + urllib.parse.urlencode(noti_count)
-                with urllib.request.urlopen(url) as data:
-                    print('ok')
+                # noti_count = {'count': 1}
+                # url = df['url'] + 'count' + '?' + urllib.parse.urlencode(noti_count)
+                # with urllib.request.urlopen(url) as data:
+                #     print('ok')
+                url = df['url'] + 'count'
+                urllib.request.urlopen(url)
                 
                 GPIO.output(LEDPin_G,GPIO.HIGH)
                 count = 1
@@ -92,7 +95,6 @@ def main():
             GPIO.output(LEDPin_G,GPIO.LOW)
                     
         time.sleep(0.5)
-                
        
 #define a destroy function for clean up everything after the script finished
 def destroy():
