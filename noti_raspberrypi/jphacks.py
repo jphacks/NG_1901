@@ -8,6 +8,8 @@ import time
 import json
 import urllib.request
 
+# 'https://noti-line-bot.herokuapp.com/'
+
 # set BCM_GPIO
 trigPin   = 17
 echoPin   = 27
@@ -20,6 +22,9 @@ detection = 20.0
 
 count     = 0
 check_LED = 0
+
+with open('./config.json') as f:
+    df = json.load(f)
 
 #setup function for some setup---custom function
 def setup():
@@ -72,8 +77,8 @@ def main():
                 print ('********************')
                 print ('\n')
                 
-                noti_count = {'count': 'aaa'}
-                url = 'https://noti-line-bot.herokuapp.com/count' + '?' + urllib.parse.urlencode(noti_count)
+                noti_count = {'count': 1}
+                url = df['url'] + 'count' + '?' + urllib.parse.urlencode(noti_count)
                 with urllib.request.urlopen(url) as data:
                     print('ok')
                 
