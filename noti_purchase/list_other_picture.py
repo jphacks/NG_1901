@@ -2,6 +2,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
+#関数serch_pictureの引数に消耗品を入力して実行すると、その消耗品が映った画像のURLが１つ出力されます
 def serch_picture(serch_word):
 
     url = "https://search.nifty.com/imagesearch/search?select=1&q=%s&ss=up"
@@ -18,5 +19,3 @@ def serch_picture(serch_word):
             break
         print(img['src'])
         count = count+1
-
-serch_picture("ティッシュ")
