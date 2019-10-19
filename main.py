@@ -115,15 +115,15 @@ def handle_message(event):
                             actions=[{'type': 'message','label': '購入','text': '購入'}]),
 
             CarouselColumn(
-                            thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
+                            thumbnail_image_url='https://japaclip.com/files/hand-soap.png',
                             image_background_color='#FFFFFF',
                             title=f'{list[1][0]}',
                             text=f'在庫：{list[0][2]}',
                             actions=[{'type': 'message','label': '購入','text': '購入'}]),
 
             CarouselColumn(
-                            thumbnail_image_url='https://1.bp.blogspot.com/-dncnFat-Kf8/UV1JSxgmdaI/AAAAAAAAPXo/0aloQ-RKvEE/s1600/tissue.png',
-                            image_background_color='#FFFFFF',
+                            thumbnail_image_url='',
+                            image_background_color='#a9a9a9',
                             title=f'{list[2][0]}',
                             text=f'在庫：{list[0][2]}',
                             actions=[{'type': 'message','label': '購入','text': '購入'}])]
