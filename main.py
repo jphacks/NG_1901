@@ -1,6 +1,8 @@
 from flask import Flask, request, abort
 import os
 import noti_db
+import noti_purchase.get_amazon_url
+amazon = noti_purchase.get_amazon_url
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -76,7 +78,7 @@ def handle_message(event):
                             image_background_color='#FFFFFF',
                             title=f'{list[0][0]}',
                             text=f'在庫：{list[0][2]}',
-                            actions=[{'type': 'message','label': '購入','text': '購入'}]),
+                            actions=[{'type': 'message','label': '購入','text': 'aa']),
 
             CarouselColumn(
                             thumbnail_image_url=f'{list[1][4]}',
