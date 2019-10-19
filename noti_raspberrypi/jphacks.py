@@ -8,8 +8,6 @@ import time
 import json
 import urllib.request
 
-app = Flask(__name__)
-
 # set BCM_GPIO
 trigPin   = 17
 echoPin   = 27
@@ -69,7 +67,7 @@ def main():
         check_PIR = GPIO.input(PIRPin)
         
         #detect distance
-        if distance < df['detection']:
+        if distance < config['detection']:
             
             #count and turn on LED
             if check_PIR == 1 and count != 1:
@@ -82,7 +80,7 @@ def main():
                 # url = df['url'] + 'count' + '?' + urllib.parse.urlencode(noti_count)
                 # with urllib.request.urlopen(url) as data:
                 #     print('ok')
-                url = df['url'] + 'count'
+                url = config['url'] + 'count'
                 urllib.request.urlopen(url)
                 
                 GPIO.output(LEDPin_G,GPIO.HIGH)
