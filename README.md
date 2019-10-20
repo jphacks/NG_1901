@@ -1,7 +1,8 @@
 # noti
-<div align="center">
-<img src="pic/noti_icon_720.png" width="500">
-</div>
+
+<p align="center">
+<a href="https://youtu.be/6c3txZBHWYQ"><img src="pic/noti_icon_720.png" width="500"></a>
+</p>
 
 ## 製品概要
 ### Life × Tech
