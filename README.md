@@ -1,6 +1,6 @@
 # noti
 
-[![Product Name](image.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
+[<img src="pic/noti_icon_720.png" width="1000">](https://www.youtube.com/watch?v=G5rULR53uMk)
 
 ## 製品概要
 ### Life × Tech
@@ -24,6 +24,7 @@
 #### 操作方法
 
 まずはじめにnotiに記載されているQRコードを読み込んで友達追加します。  
+<br>
 <img src="pic/UI.png" width="300">  
 notiには3つのメニューがあります。  
 * 登録  
