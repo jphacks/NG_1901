@@ -1,6 +1,7 @@
 # noti
-
-[<img src="pic/noti_icon_720.png" width="1000">](https://www.youtube.com/watch?v=G5rULR53uMk)
+<div align="center">
+<img src="pic/noti_icon_720.png" width="500">
+</div>
 
 ## 製品概要
 ### Life × Tech
