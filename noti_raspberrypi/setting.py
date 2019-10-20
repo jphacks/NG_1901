@@ -128,6 +128,7 @@ def alert():
        
 @app.route("/registration", methods=['GET'])
 def registration():
+    GPIO.output(LEDPin_Y,GPIO.LOW)
     name = request.args.get('name')
     target = request.args.get('target')
     json_config = cl.OrderedDict()
