@@ -104,8 +104,20 @@ def main():
         #detect distance
         if distance <= config['detection']:
             #count and turn on LED
-            if check_PIR == 1 and count != 1:
+            if time.time() > config['time'] + config['detection'] * 3600:
+                url = config['url'] + 'safety?noti=' +config['noti']
+                urllib.request.urlopen(url)
+            elif check_PIR == 1 and count != 1:
                 print ('hit')
+                json_config = cl.OrderedDict()
+                json_config['url'] = config['url']
+                json_config['noti'] = config['noti']
+                json_config['name'] = config['name']
+                json_config['target'] = config['target']
+                json_config['detection'] = config['detection']
+                json_config['time'] = time.time()
+                config_new = open('config.json','w')
+                json.dump(json_config,config_new,indent=4)
                 if config['target'] == 'object':
                     url = config['url'] + 'object?noti=' +config['noti']
                     urllib.request.urlopen(url)

@@ -137,6 +137,8 @@ def registration():
     json_config['name'] = name
     json_config['target'] = target
     json_config['detection'] = config['detection']
+    if name == 'safety':
+        json_config['time'] = time.time()
     config_new = open('config.json','w')
     json.dump(json_config,config_new,indent=4)
     return "ok"
