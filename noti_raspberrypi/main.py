@@ -1,8 +1,3 @@
-#!/usr/bin/python
-###########################################################################
-#Filename      :jphacks.py
-#Description   :noti
-############################################################################
 import RPi.GPIO as GPIO
 import time
 import json
@@ -91,8 +86,12 @@ def main():
             GPIO.output(LEDPin_R,GPIO.HIGH)
             count_button = 0
 
-        #measur distance
-        distance = measure()
+        # measur distance
+        # nameがsafety(安否確認の場合は，距離を考慮しない)
+        if config['name'] == 'safety':
+            distance = 0
+        else:
+            distance = measure()
         
         print('distance = ',distance)
         
@@ -103,14 +102,10 @@ def main():
             check_PIR == 1
         
         #detect distance
-        if distance < config['detection']:
+        if distance <= config['detection']:
             #count and turn on LED
             if check_PIR == 1 and count != 1:
-                print ('********************')
-                print ('*     alarm!       *')
-                print ('********************')
-                print ('\n')
-                
+                print ('hit')
                 if config['target'] == 'object':
                     url = config['url'] + 'object?noti=' +config['noti']
                     urllib.request.urlopen(url)

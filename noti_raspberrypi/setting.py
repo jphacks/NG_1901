@@ -80,6 +80,8 @@ def setting():
         #check presence sensor
         check_PIR = GPIO.input(PIRPin)
         
+        # json_config['target'] == 'object'
+
         #detect distance
         if distance < detection:
             #3回反応したら，そこから閾値設定計算
@@ -124,6 +126,20 @@ def alert():
     GPIO.output(LEDPin_R,GPIO.HIGH)
     return "On"
        
+@app.route("/registration", methods=['GET'])
+def registration():
+    name = request.args.get('name')
+    target = request.args.get('target')
+    json_config = cl.OrderedDict()
+    json_config['url'] = config['url']
+    json_config['noti'] = config['noti']
+    json_config['name'] = name
+    json_config['target'] = target
+    json_config['detection'] = config['detection']
+    config_new = open('config.json','w')
+    json.dump(json_config,config_new,indent=4)
+    return "ok"
+
 #define a destroy function for clean up everything after the script finished
 def destroy():
     #release resource
