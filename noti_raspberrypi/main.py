@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import json
 import urllib.request
+import collections as cl
 
 # set BCM_GPIO
 # 登録と交換用のボタン
