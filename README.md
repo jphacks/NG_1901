@@ -1,7 +1,7 @@
 # noti
 
 <p align="center">
-<a href="https://youtu.be/6c3txZBHWYQ"><img src="pic/noti_icon_720.png" width="500"></a>
+<a href="https://youtu.be/"><img src="pic/noti_icon_720.png" width="500"></a>
 </p>
 
 ## 製品概要
@@ -65,7 +65,6 @@ notiの焦点は消耗品に当てていますが、使い方次第でいろん�
 #### API・データ
 * SQLite3
 * LINEBot
-* 
 
 #### フレームワーク・ライブラリ・モジュール
 * Flask
@@ -79,7 +78,6 @@ notiの焦点は消耗品に当てていますが、使い方次第でいろん�
 
 ### 研究内容・事前開発プロダクト（任意）
 #### 研究内容
-* （安藤さんの研究内容？）
 * モノの構造や仕様の最適化
 * 各種センサを活用した実システム制御とコンピュータシミュレーションの統合
 
